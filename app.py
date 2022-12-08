@@ -28,7 +28,7 @@ def inference(model_inputs:dict) -> dict:
     audio = whisper.load_audio("input.mp3")
     audio = whisper.pad_or_trim(audio)
     mel = whisper.log_mel_spectrogram(audio).to(model.device)
-    options = whisper.DecodingOptions() # fp16=False for CPU, aka local testing.
+    options = whisper.DecodingOptions(task="transcribe", language="en") # fp16=False for CPU, aka local testing.
     result = whisper.decode(model, mel, options)
 
     # Return the results as a dictionary.
